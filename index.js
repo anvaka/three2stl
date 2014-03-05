@@ -15,7 +15,7 @@ function exportScene(scene) {
     if (obj instanceof THREE.Mesh) meshes.push (obj);
   });
 
-  return exportMeshes();
+  return exportMeshes(meshes);
 }
 
 function exportMeshes(meshes) {

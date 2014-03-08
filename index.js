@@ -30,14 +30,13 @@ function exportMeshes(meshes) {
 
     geometry = mesh.geometry;
     matrix = mesh.matrix;
-    position = mesh.position;
 
     for (j = 0; j < geometry.faces.length; j++) {
       face = geometry.faces[j];
       normal = face.normal;
-      vertex1 = getTransformedPosition(geometry.vertices[face.a], matrix, position);
-      vertex2 = getTransformedPosition(geometry.vertices[face.b], matrix, position);
-      vertex3 = getTransformedPosition(geometry.vertices[face.c], matrix, position);
+      vertex1 = getTransformedPosition(geometry.vertices[face.a], matrix);
+      vertex2 = getTransformedPosition(geometry.vertices[face.b], matrix);
+      vertex3 = getTransformedPosition(geometry.vertices[face.c], matrix);
       addTriangle(normal, vertex1, vertex2, vertex3);
     }
   }
@@ -60,13 +59,10 @@ function exportMeshes(meshes) {
     add('\tendfacet');
   }
 
-  function getTransformedPosition(vertex, matrix, position) {
+  function getTransformedPosition(vertex, matrix) {
     var result = vertex.clone();
     if (matrix !== undefined) {
       result.applyMatrix4(matrix);
-    }
-    if (position !== undefined) {
-      result.add(position);
     }
 
     return result;
